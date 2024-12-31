@@ -23,7 +23,7 @@ class TopAppBar extends StatelessWidget {
               color: AppColors.primaryColor),
         ),
         AppCircularButton(
-          onDrawerToggle: onDrawerToggle,
+          onTap: onDrawerToggle,
           color: AppColors.primaryColor,
           imageUrl: "assets/icons/options.png",
         )

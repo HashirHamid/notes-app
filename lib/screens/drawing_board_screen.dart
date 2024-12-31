@@ -7,6 +7,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:notes_app/configs/colors.dart';
+import 'package:notes_app/widgets/app_circular_button_widget.dart';
+import 'package:notes_app/widgets/tools_bottom_bar_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DrawingBoardScreen extends StatefulWidget {
@@ -90,35 +92,33 @@ class DrawingBoardScreenState extends State<DrawingBoardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      // appBar: AppBar(
-      //   title: const Text("Drawing Board"),
-      //   actions: [
-      //     TextButton(
-      //       onPressed: () => _drawingController.clear(),
-      //       child: const Icon(Icons.delete),
-      //     ),
-      //     TextButton(
-      //       child: const Icon(
-      //         Icons.star,
-      //         color: Colors.amber,
-      //       ),
-      //       onPressed: () async {
-      //         _pickImageAndProcess();
-      //       },
-      //     )
-      //   ],
-      // ),
+      floatingActionButton: ToolsBottomBarWidget(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(children: [
-                Image.asset(
-                  'assets/icons/arrow.png',
-                  height: 60,
-                ),
-              ]),
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppCircularButton(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        padding: 6,
+                        opacity: 0.1,
+                        color: AppColors.blackColor,
+                        imageUrl: 'assets/icons/left-arrow.png'),
+                    AppCircularButton(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        padding: 6,
+                        opacity: 0.1,
+                        color: AppColors.blackColor,
+                        imageUrl: 'assets/icons/three-dots-options.png')
+                  ]),
             ),
             Expanded(
               child: RepaintBoundary(

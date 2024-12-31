@@ -5,25 +5,27 @@ import 'package:notes_app/configs/colors.dart';
 class AppCircularButton extends StatelessWidget {
   AppCircularButton({
     super.key,
-    required this.onDrawerToggle,
+    required this.onTap,
     required this.color,
     required this.imageUrl,
     this.opacity = 1.0,
+    this.padding,
   });
 
   double opacity;
   final Color color;
   final String imageUrl;
-  final VoidCallback onDrawerToggle;
+  final VoidCallback onTap;
+  double? padding;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onDrawerToggle,
+      onTap: onTap,
       child: Container(
           width: 50,
           height: 50,
-          padding: const EdgeInsets.all(2),
+          padding: EdgeInsets.all(padding ?? 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: AppColors.lightblackColor.withOpacity(opacity),
