@@ -75,6 +75,7 @@ class ToolsBottomBarWidget extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ToolItemButton extends StatelessWidget {
   ToolItemButton(
       {super.key,

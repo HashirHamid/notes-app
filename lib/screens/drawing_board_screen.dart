@@ -1,15 +1,15 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
+// import 'dart:io';
+// import 'dart:typed_data';
+// import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:notes_app/configs/colors.dart';
 import 'package:notes_app/widgets/app_circular_button_widget.dart';
 import 'package:notes_app/widgets/tools_bottom_bar_widget.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
 
 class DrawingBoardScreen extends StatefulWidget {
   const DrawingBoardScreen({super.key});
@@ -36,63 +36,63 @@ class DrawingBoardScreenState extends State<DrawingBoardScreen> {
     textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
   }
 
-  void _pickImageAndProcess() async {
-    RenderRepaintBoundary boundary = _drawingBoardKey.currentContext
-        ?.findRenderObject() as RenderRepaintBoundary;
-    ui.Image image = await boundary.toImage();
-    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    File file;
-    if (byteData != null) {
-      Uint8List imageBytes = byteData.buffer.asUint8List();
+  // void _pickImageAndProcess() async {
+  //   RenderRepaintBoundary boundary = _drawingBoardKey.currentContext
+  //       ?.findRenderObject() as RenderRepaintBoundary;
+  //   ui.Image image = await boundary.toImage();
+  //   ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+  //   File file;
+  //   if (byteData != null) {
+  //     Uint8List imageBytes = byteData.buffer.asUint8List();
 
-      final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/captured_image.png';
+  //     final directory = await getApplicationDocumentsDirectory();
+  //     final filePath = '${directory.path}/captured_image.png';
 
-      file = File(filePath);
+  //     file = File(filePath);
 
-      await file.writeAsBytes(imageBytes);
-    } else {
-      throw Exception("Failed to capture image data");
-    }
+  //     await file.writeAsBytes(imageBytes);
+  //   } else {
+  //     throw Exception("Failed to capture image data");
+  //   }
 
-    try {
-      final inputImage = InputImage.fromFilePath(file.path);
-      final RecognizedText recognisedText =
-          await textRecognizer.processImage(inputImage);
+  //   try {
+  //     final inputImage = InputImage.fromFilePath(file.path);
+  //     final RecognizedText recognisedText =
+  //         await textRecognizer.processImage(inputImage);
 
-      recognizedText = "";
+  //     recognizedText = "";
 
-      print("OFFSET --- ${recognisedText.blocks[0].cornerPoints}");
+  //     print("OFFSET --- ${recognisedText.blocks[0].cornerPoints}");
 
-      for (TextBlock block in recognisedText.blocks) {
-        for (TextLine line in block.lines) {
-          recognizedText += "${line.text}\n";
-          offset = Offset(line.boundingBox.left / 2, line.boundingBox.top);
-        }
-      }
-      text.text = recognizedText;
-    } catch (e) {
-      if (!mounted) {
-        return;
-      }
+  //     for (TextBlock block in recognisedText.blocks) {
+  //       for (TextLine line in block.lines) {
+  //         recognizedText += "${line.text}\n";
+  //         offset = Offset(line.boundingBox.left / 2, line.boundingBox.top);
+  //       }
+  //     }
+  //     text.text = recognizedText;
+  //   } catch (e) {
+  //     if (!mounted) {
+  //       return;
+  //     }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error recognizing text: $e'),
-        ),
-      );
-    } finally {
-      setState(() {
-        isRecognizing = false;
-      });
-    }
-  }
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Error recognizing text: $e'),
+  //       ),
+  //     );
+  //   } finally {
+  //     setState(() {
+  //       isRecognizing = false;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      floatingActionButton: ToolsBottomBarWidget(),
+      floatingActionButton: const ToolsBottomBarWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Column(
